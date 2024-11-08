@@ -1,29 +1,23 @@
-- name: install pip
+
+- name: Install pip
   yum:
     name: python-pip
     state: present
 
-- name: pip install docker-py
+- name: Install docker-py with pip
   pip:
     name:
       - docker
       - docker-compose
 
- - name: install wartest
-  hosts: all
-  become: yes
-  roles:
-    - role: wartest
-      vars:
-        image: "registry.gitlab.com/medbb/presentations-jenkins/wartest:latest"
-        
-- name: run container
+- name: Run container
   docker_container:
     name: wartest_container
     image: "{{ image }}"
     state: started
     published_ports:
       - "8081:8080"
+
 
 
 
