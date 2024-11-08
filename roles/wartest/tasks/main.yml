@@ -9,10 +9,20 @@
       - docker
       - docker-compose
 
+ - name: install wartest
+  hosts: all
+  become: yes
+  roles:
+    - role: wartest
+      vars:
+        image: "registry.gitlab.com/medbb/presentations-jenkins/wartest:latest"
+        
 - name: run container
   docker_container:
     name: wartest
     image: "{{ image }}"
     ports: 8081:8080
     state: started
- 
+
+
+
